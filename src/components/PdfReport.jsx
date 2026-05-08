@@ -221,7 +221,7 @@ export default forwardRef(function PdfReport({ state }, ref) {
     { label: 'Current Annual Cost', value: formatCurrency(costModel.totalCurrent) },
     { label: 'Azure Annual Cost', value: formatCurrency(costModel.totalAzure) },
     { label: 'Annual Savings', value: formatSignedCurrency(roi.annualSavings), highlight: roi.annualSavings },
-    { label: 'Savings %', value: formatSignedPercent(costModel.totalSavingsPercent), highlight: roi.annualSavings },
+    { label: 'Savings %', value: formatSignedPercent(costModel.totalSavingsPercent), highlight: costModel.totalSavingsPercent },
     { label: 'Payback Period', value: formatMonths(roi.paybackMonths) },
     { label: '3-Year ROI', value: formatPercent(roi.threeYearRoi), highlight: roi.threeYearRoi },
     { label: '5-Year Net Benefit', value: formatSignedCurrency(roi.fiveYearNetBenefit), highlight: roi.fiveYearNetBenefit },
@@ -435,7 +435,7 @@ export default forwardRef(function PdfReport({ state }, ref) {
 
       <section style={pageSectionStyle}>
         <h2 style={headingStyle}>Strategic Value</h2>
-        {(state.qualitativeValue ? STRATEGIC_SECTIONS : []).map((section) => {
+        {STRATEGIC_SECTIONS.map((section) => {
           const rows = (state.qualitativeValue?.[section.key] ?? []).filter((item) => !isBlankRow(item, section.columns));
 
           return (
